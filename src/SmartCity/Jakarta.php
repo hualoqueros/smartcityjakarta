@@ -2,14 +2,12 @@
 namespace SmartCity;
 
 use \GuzzleHttp\Client as Client;
-
+use SmartCity\Constant;
 class Jakarta{
 
     private $token;
-    static $_BASE_URL = "http://api.jakarta.go.id/v1";
     private $client;
-    static $_AMBULANCE = "/emergency/ambulance";
-    static $_RW = "/rw";
+    use Constant;
 
     /**
      * Create a new Skeleton Instance

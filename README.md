@@ -3,7 +3,7 @@ SDK for API smartcity jakarta
 ## What it is?
 This is PHP SDK for access to http://api.jakarta.go.id/
 # Installation
-1. You have register at http://api.jakarta.go.id/
+1. You have to register at http://api.jakarta.go.id/
 2. Login and create new APP
 3. Select All API service
 4. Click Create Button
