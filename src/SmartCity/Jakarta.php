@@ -17,8 +17,13 @@ class Jakarta{
         $this->token = $token;
         $this->client =  new Client;
     }
-
-    public function getAmbulance()
+    
+    /**
+     * Get Ambulance data
+     *
+     * @return string
+     */
+    public function getAmbulance(): string
     {
         $endpoint = self::$_BASE_URL . self::$_AMBULANCE;
         $res = $this->client->request('GET', $endpoint, [
@@ -29,7 +34,13 @@ class Jakarta{
         return $res->getBody();
     }
 
-    public function getRW($page = 1)
+    /**
+     * get RW data
+     *
+     * @param integer $page
+     * @return string
+     */
+    public function getRW($page = 1): string
     {
         $options  = http_build_query([ "page" => $page ]);
         $endpoint = self::$_BASE_URL . self::$_RW . "?" . $options;
@@ -39,6 +50,26 @@ class Jakarta{
                 'Authorization' => $this->token
             ]
         ]);
+        return $res->getBody();
+    }
+    
+    /**
+     * Tracking Busway
+     *
+     * @param string $busCode filled this when search spesific bus code
+     * @return void
+     */
+    public function getBusway( $busCode = "" ){
+        $endpoint = self::$_BUSWAY;
+
+        $res = $this->client->request('GET', $endpoint);
+        if ($busCode!=""){
+            $busWayTracking = json_decode($res->getBody()->getContents())->buswaytracking;
+            $busWay = array_filter($busWayTracking, function($arr) use (&$busCode) {
+                            return $arr->buscode == $busCode;
+                        });
+            return json_encode($busWay);
+        }
         return $res->getBody();
     }
 }
